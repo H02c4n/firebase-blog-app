@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CommentForm from '../components/comment/CommentForm';
 import image1 from "../assets/images/image1.jpg";
 import profile87 from "../assets/images/87.jpg";
 import profile37 from "../assets/images/37.jpg";
+import RecentPosts from '../components/recent-posts/RecentPosts';
+import { Link, useParams } from 'react-router-dom';
+import useBlogCalls from '../hooks/useBlogCalls';
+import { useSelector } from 'react-redux';
 
 const Details = () => {
+
+  const {id} = useParams();
+  const {getPost} = useBlogCalls();
+  const {currentPost} = useSelector((state) =>state.blogReducer);
+
+  useEffect(() => {
+   getPost(id);
+  }, []);
+  
+  console.log(id);
+
   return (
     <div id="body_bg">
     <div className="primary-container-group">
@@ -23,32 +38,10 @@ const Details = () => {
                     <span className="month">Dec</span>
                   </div>
                   <h2>
-                    <a href="#">
+                    <Link to="">
                       Just a Sample Blog Bost
-                    </a>
+                    </Link>
                   </h2>
-                  <div className="blog-post-details">
-                    {/* Author Name */}
-                    <div className="blog-post-details-item blog-post-details-item-left user-icon">
-                      <i className="fa fa-user" />
-                      <a href="#">Admin</a>
-                    </div>
-                    {/* End Author Name */}
-                    {/* Tags */}
-                    <div className="blog-post-details-item blog-post-details-item-left blog-post-details-tags tags-icon">
-                      <i className="fa fa-tag" />
-                      <a href="#">CoffeeScript</a>
-                    </div>
-                    {/* End Tags */}
-                    {/* # of Comments */}
-                    <div className="blog-post-details-item blog-post-details-item-left blog-post-details-item-last comments-icon">
-                      <a href>
-                        <i className="fa fa-comments" />
-                        3 Comments
-                      </a>
-                    </div>
-                    {/* End # of Comments */}
-                  </div>
                 </div>
                 <div className="blog-item">
                   <div className="clearfix" />
@@ -59,10 +52,7 @@ const Details = () => {
                     
                     <div className="col-md-12">
                       <p>
-                        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum
-                        dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                        magna aliquyam erat, sed diam voluptua.</p>
+                       content</p>
                     </div>
                   </div>
                   <div className="blog-item-footer">
@@ -94,9 +84,9 @@ const Details = () => {
                         <li className="list-group-item">
                           <div className="row">
                             <div className="col-md-2 profile-thumb">
-                              <a href="#">
+                              <Link to="">
                                 <img className="media-object" src={profile37} alt="" />
-                              </a>
+                              </Link>
                             </div>
                             <div className="col-md-10">
                               <h4>Thank you!</h4>
@@ -123,26 +113,7 @@ const Details = () => {
             {/* End Main Column */}
             {/* Side Column */}
             <div className="col-md-3 mt-3">
-              {/* Recent Posts */}
-                <div className="recent-posts">
-                  <h3>Recent Posts</h3>
-                  <ul className="posts-list margin-top-10">
-                    <li>
-                      <div className="recent-post">
-                        <a href>
-                          <img className="pull-left" src="assets/img/blog/thumbs/thumb1.jpg" alt="thumb1" />
-                        </a>
-                        <a href="#" className="posts-list-title">Sidebar post example</a>
-                        <br />
-                        <span className="recent-post-date">
-                          July 30, 2013
-                        </span>
-                      </div>
-                      <div className="clearfix" />
-                    </li>
-                  </ul>
-                </div>
-                 {/* End Recent Posts */}
+             <RecentPosts/>
               {/* End Side Column */}
             </div>
           </div>

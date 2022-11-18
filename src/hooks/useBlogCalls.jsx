@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import {startPhase, successPhase, failPhase} from "../features/blogSlice";
+import {startPhase, failPhase, loadPosts, loadCurrentPost} from "../features/blogSlice";
 import firebase from '../auth/firebase';
-import { getDatabase, ref, push, set } from 'firebase/database';
+import { getDatabase, ref, push, set, onValue, child, get} from 'firebase/database';
 
 const useBlogCalls = () => {
 
@@ -21,8 +21,35 @@ const useBlogCalls = () => {
         }
     }; 
 
+    const getPosts = () =>{
+      dispatch(startPhase());
+    const db = getDatabase(firebase);
+    const starCountRef = ref(db, 'blogs/');
+    onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    const postsArray = [];
+    for (const id in data) {
+        postsArray.push({id, ...data[id]})
+    }
+    dispatch(loadPosts(postsArray));
+    });
+    };
+
+    const getPost = async(postId) =>{
+      dispatch(startPhase());
+    const db = getDatabase(firebase);
+    const starCountRef = ref(db, 'blogs/' +"-NH7_E4QH_2jceapzjFC"+ "/startCount");
+    onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    dispatch(loadCurrentPost(data));
+    console.log(data);
+    });
+    };
+
   return{
     addNewBlog,
+    getPosts,
+    getPost,
   }
 }
 
