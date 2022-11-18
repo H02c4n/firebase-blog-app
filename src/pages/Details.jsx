@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import CommentForm from '../components/comment/CommentForm';
-import image1 from "../assets/images/image1.jpg";
-import profile87 from "../assets/images/87.jpg";
+import profile87 from "../assets/images/avatar1.jpg";
 import profile37 from "../assets/images/37.jpg";
 import RecentPosts from '../components/recent-posts/RecentPosts';
 import { Link, useParams } from 'react-router-dom';
@@ -15,10 +14,12 @@ const Details = () => {
   const {currentPost} = useSelector((state) =>state.blogReducer);
 
   useEffect(() => {
-   getPost(id);
-  }, []);
+  if (id) {
+    getPost(id);
+  }
+  }, [id]);
   
-  console.log(id);
+  console.log(currentPost);
 
   return (
     <div id="body_bg">
@@ -39,7 +40,7 @@ const Details = () => {
                   </div>
                   <h2>
                     <Link to="">
-                      Just a Sample Blog Bost
+                      {currentPost?.title}
                     </Link>
                   </h2>
                 </div>
@@ -47,12 +48,12 @@ const Details = () => {
                   <div className="clearfix" />
                   <div className="blog-post-body row margin-top-15">
                     <div className="col-md-5">
-                      <img className="pull-left" src={image1} alt="image1" />
+                      <img className="pull-left" src={currentPost?.imgUrl} alt="image1" />
                     </div>
                     
                     <div className="col-md-12">
                       <p>
-                       content</p>
+                       {currentPost?.content}</p>
                     </div>
                   </div>
                   <div className="blog-item-footer">
@@ -67,7 +68,7 @@ const Details = () => {
                             <img className="pull-left" src={profile87} alt="image1" />
                           </div>
                           <div className="col-md-10">
-                            <label>John Doe</label>
+                            <label>{currentPost?.author}</label>
                             <p>Lorem ipsum dolor sit amet, in pri offendit ocurreret. Vix sumo ferri an. pfs adodio fugit delenit ut qui. Omittam suscipiantur ex vel,ex audiam intellegat gfIn labitur discere eos, nam an feugiat
                               voluptua.</p>
                           </div>

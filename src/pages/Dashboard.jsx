@@ -11,7 +11,6 @@ const Dashboard = () => {
 
   return (
     <div id="body_bg">
-      {currentUser}
         <div id="container_header" className="container">
           
         </div>

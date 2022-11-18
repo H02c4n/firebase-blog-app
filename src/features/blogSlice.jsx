@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     blogList:[],
-    currentPost:null,
+    currentPost:JSON.parse(localStorage.getItem("currentPost")) || null,
     loading:false,
     error:false,
 }

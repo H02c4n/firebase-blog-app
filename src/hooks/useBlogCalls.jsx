@@ -35,14 +35,19 @@ const useBlogCalls = () => {
     });
     };
 
-    const getPost = async(postId) =>{
+    const getPost = (postId) =>{
       dispatch(startPhase());
-    const db = getDatabase(firebase);
-    const starCountRef = ref(db, 'blogs/' +"-NH7_E4QH_2jceapzjFC"+ "/startCount");
-    onValue(starCountRef, (snapshot) => {
-    const data = snapshot.val();
-    dispatch(loadCurrentPost(data));
-    console.log(data);
+    const dbRef = ref(getDatabase(firebase));
+    get(child(dbRef, `blogs/${postId}`)).then((snapshot)=>{
+      if (snapshot.exists()) {
+        const singlePost = snapshot.val();
+        dispatch(loadCurrentPost(singlePost));
+        localStorage.setItem("currentPost",JSON.stringify(singlePost));
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) =>{
+      console.log(error);
     });
     };
 

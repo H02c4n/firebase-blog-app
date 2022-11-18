@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-currentUser:true,
-displayName:null,
+currentUser: null,
+displayName: null,
 loading:false,
 error:false,
 }
