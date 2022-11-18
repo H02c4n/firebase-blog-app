@@ -5,11 +5,12 @@ import OtherInfo from "./OtherInfo";
 import PersonalInfo from "./PersonalInfo";
 import useAuthCalls from "../../hooks/useAuthCalls";
 import { useSelector } from "react-redux";
-import {toastErrorNotify, toastSuccessNotify} from "../../helpers/toastify"
+import {toastErrorNotify, toastSuccessNotify} from "../../helpers/toastify";
+import gif from "../../assets/spinner.gif";
 
 const Form = () => {
   const navigate = useNavigate()
-  const {currentUser, error} = useSelector((state)=>state.authReducer);
+  const {currentUser, error, loading} = useSelector((state)=>state.authReducer);
   const {registerUser} = useAuthCalls();
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const Form = () => {
 
   useEffect(() => {
     if (currentUser) {
-      navigate("/");
+      //navigate("/");
       toastSuccessNotify("Sign-in is performed succesfully");
     }
   }, [navigate, currentUser]);
@@ -89,13 +90,14 @@ const Form = () => {
                 onClick={() => {
                     if (page === FormTitles.length - 1) {
                       registerUser(formData);
+                      navigate("/login");
                     } else {
                       setPage((currPage) => currPage + 1);
                     }
                   }}
                 className="btn form-buttons"
               >
-                {page === FormTitles.length -1 ? "Submit" : "Forward"}
+                {page === FormTitles.length -1 ? loading ? (<img style={{width:"25px"}} src={gif} alt="" />): "Submit" : "Forward"}
               </button>
             </div>
           </div>

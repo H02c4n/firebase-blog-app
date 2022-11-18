@@ -14,8 +14,9 @@ const Login = () => {
 
   const navigate = useNavigate();
   const {login} = useAuthCalls();
-  const {currentUser,loading} = useSelector((state) => state.authReducer);
+  const {currentUser, loading} = useSelector((state) => state.authReducer);
 
+  //console.log(currentUser);
 
   useEffect(() => {
     if (currentUser) {
