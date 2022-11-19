@@ -18,6 +18,7 @@ const NewBlog = () => {
     title:"",
     imgUrl:"",
     content:"",
+    comments:{},
     category:"",
     date:date,
     author: displayName ? displayName : "admin"
@@ -86,8 +87,8 @@ const NewBlog = () => {
             <label htmlFor="floatingTextarea">Content</label>
           </div>
 
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="Submit">
+          <div className="d-grid gap-2">
+            <button className="btn btn-primary" type="Submit">
               Submit
             </button>
           </div>

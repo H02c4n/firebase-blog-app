@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import CommentForm from '../components/comment/CommentForm';
 import profile87 from "../assets/images/avatar1.jpg";
-import profile37 from "../assets/images/37.jpg";
 import RecentPosts from '../components/recent-posts/RecentPosts';
 import { Link, useParams } from 'react-router-dom';
 import useBlogCalls from '../hooks/useBlogCalls';
@@ -18,8 +17,6 @@ const Details = () => {
     getPost(id);
   }
   }, [id]);
-  
-  console.log(currentPost);
 
   return (
     <div id="body_bg">
@@ -82,25 +79,35 @@ const Details = () => {
                         <h3>Comments</h3>
                       </div>
                       <ul className="list-group">
-                        <li className="list-group-item">
+                        {
+                         currentPost?.comments &&                            
+                        
+                        Object.values(currentPost.comments)?.map((comment,i) =>{
+                          return(
+                            <li key={i} className="list-group-item">
                           <div className="row">
                             <div className="col-md-2 profile-thumb">
                               <Link to="">
-                                <img className="media-object" src={profile37} alt="" />
+                                <img className="media-object" 
+                                src={profile87} alt="" />
+                                <p>{comment.commenter}</p>
                               </Link>
                             </div>
                             <div className="col-md-10">
-                              <h4>Thank you!</h4>
-                              <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                                elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                              <h4>{comment?.title}</h4>
+                              <p>{comment?.message}</p>
                               <span className="date">
-                                <i className="fa fa-clock-o" />10 May 2013</span>
+                                <i className="fa fa-clock-o" />{comment?.date}</span>
                             </div>
                           </div>
                         </li>
+                          )
+                        })}
+                            
+                        
                         {/* Comment Form */}
                         <li className="list-group-item">
-                          <CommentForm/>
+                          <CommentForm currentId={id}/>
                         </li>
                         {/* End Comment Form */}
                       </ul>

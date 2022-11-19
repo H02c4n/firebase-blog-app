@@ -38,6 +38,8 @@ const useAuthCalls = () => {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       const displayName = auth.currentUser.displayName;
       dispatch(loginSuccess({...data, displayName:displayName}));
+      localStorage.setItem("currentUser", JSON.stringify(data));
+      localStorage.setItem("displayName", JSON.stringify(displayName));
       } catch (error) {
         dispatch(authFail())
       }

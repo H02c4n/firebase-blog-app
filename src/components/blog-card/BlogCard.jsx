@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useBlogCalls from '../../hooks/useBlogCalls';
+import {AiOutlineComment, AiOutlineLike} from "react-icons/ai";
 
 const BlogCard = () => {
 
@@ -21,7 +22,7 @@ const BlogCard = () => {
   return (
     <div>
         {blogList?.map(post =>{
-            const{id, title, content, imgUrl, date} = post;
+            const{id, title, content, imgUrl, date, like} = post;
             const splittedDate = date?.split("-");
             const months = ["JAN","FEB","MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             let formattedMonth ="";  
@@ -35,17 +36,27 @@ const BlogCard = () => {
                     {/* Blog Item Header */}
                     <div className="blog-item-header">
                       {/* Date */}
-                      <div className="blog-post-date pull-left">
+                      <div className="blog-post-date pull-left" style={{width:"3rem"}}>
 
                         <span className="day">{formattedDay}</span>
                         <span className="month">{formattedMonth}</span>
+                        <span>
+                        <AiOutlineComment style={{fontSize:"1.5rem", paddingTop:"3px"}}
+                        className="mt-2" role="button"/>
+                        <span className='text-white bg-secondary border rounded-pill'>5</span>
+                        </span>
+                        <span>
+                        <AiOutlineLike style={{fontSize:"1.5rem", paddingTop:"3px"}} role="button" />
+                        <span className='text-white bg-secondary border rounded-pill'>{like ? like :"0" }</span>
+                        </span>
                       </div>
                       {/* End Date */}
                       {/* Title */}
                       <h2>
                         <Link to="">
-                          {title}</Link>
+                          {title}  </Link>
                       </h2>
+                      
                       {/* End Title */}
                     </div>
                     {/* End Blog Item Header */}
@@ -53,7 +64,7 @@ const BlogCard = () => {
                     <div className="blog row">
                       <div className="clearfix" />
                       <div className="blog-post-body row margin-top-15">
-                        <div className="col-md-5">
+                        <div className="col-md-6">
                           <img className="pull-left" src={imgUrl} alt="thumb1" />
                         </div>
                         <div className="col-md-12">

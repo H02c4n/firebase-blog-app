@@ -23,6 +23,9 @@ const blogSlice = createSlice({
       state.currentPost = payload;
       state.loading = false;
     },
+    loadComment:(state, {payload})=>{
+      console.log("update comment");
+    },
     failPhase:(state)=>{
         state.error= true;
         state.loading= false;
@@ -30,6 +33,6 @@ const blogSlice = createSlice({
   }
 });
 
-export const {startPhase, failPhase, loadPosts, loadCurrentPost} = blogSlice.actions
+export const {startPhase, failPhase, loadPosts, loadCurrentPost, loadComment} = blogSlice.actions
 
 export default blogSlice.reducer
