@@ -17,9 +17,9 @@ const BlogCategories = () => {
     <div className="blog-tags">
     <h3>Categories</h3>
     <ul className="blog-tags">
-      {categories?.map(category =>{
+      {categories?.map((category, i) =>{
         return(
-          <li>
+          <li key={i}>
         <p href="#" className="blog-tag">{category.toUpperCase()}</p>
       </li>
         )
