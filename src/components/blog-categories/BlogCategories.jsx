@@ -1,6 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const BlogCategories = () => {
+
+  const {} = useSelector((state) => state.authReducer);
+
+
   return (
     <div className="blog-tags">
     <h3>Categories</h3>
