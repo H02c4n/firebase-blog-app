@@ -28,7 +28,6 @@ const BlogCard = () => {
             const l =Object.keys(like).length-1;
             const willRemove = Object.keys(like)[l];
 
-            const likeId = like.id;
             const splittedDate = date?.split("-");
             const months = ["JAN","FEB","MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             let formattedMonth ="";  
