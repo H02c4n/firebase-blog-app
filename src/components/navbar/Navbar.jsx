@@ -10,7 +10,7 @@ const Navbar = () => {
   return (<>
    <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid d-flex justify-content-between">
-          <Link className="navbar-brand" to="/">{displayName ? displayName : "H02c4n"}</Link>
+          <Link className="navbar-brand" to="/">{displayName ? displayName : "H02c4n"}</Link>{currentUser.email}
             
          <div className='d-flex'>
           {currentUser ? (<Link className="nav-link me-3" to="/new-blog">Add New</Link>):""}

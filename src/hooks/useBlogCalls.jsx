@@ -13,7 +13,9 @@ import {
   set,
   onValue,
   child,
-  get
+  get,
+  update,
+  remove
 } from "firebase/database";
 
 const useBlogCalls = () => {
@@ -70,11 +72,29 @@ const useBlogCalls = () => {
     await set(newCommentRef, commentForm);
   };
 
+
+  const addLike = async (id, currentUserEmail) =>{
+    const db = getDatabase(firebase);
+    
+    const likeListRef = ref(db, `blogs/${id}/like/`);
+    const newLikeRef = push(likeListRef);
+    await set(newLikeRef, currentUserEmail);
+  }
+
+  const removeLike = async(id, willRemove) => {
+    const db = getDatabase(firebase);
+    const likeRef = ref(db, `blogs/${id}/like/${willRemove}`);
+    await remove(likeRef);
+  }
+
+
   return {
     addNewBlog,
     getPosts,
     getPost,
     addNewComment,
+    addLike,
+    removeLike,
   };
 };
 

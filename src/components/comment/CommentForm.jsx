@@ -21,6 +21,7 @@ const CommentForm = ({currentId}) => {
   const handleSubmit =(e)=>{
       e.preventDefault();
       addNewComment(commentForm);
+      setCommentForm(initialState);
     }
     
 

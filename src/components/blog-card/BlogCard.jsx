@@ -7,7 +7,7 @@ import {AiOutlineComment, AiOutlineLike} from "react-icons/ai";
 const BlogCard = () => {
 
 
-    const {getPosts} = useBlogCalls();
+    const {getPosts, addLike, removeLike} = useBlogCalls();
     const navigate = useNavigate();
    
     useEffect(() => {
@@ -15,14 +15,20 @@ const BlogCard = () => {
     }, [])
 
      const {blogList} = useSelector((state)=>state.blogReducer);
-     //console.log(blogList);
+     const {currentUser} = useSelector((state) => state.authReducer);
+     const currentUserEmail = currentUser.email;
 
 
 
   return (
     <div>
         {blogList?.map(post =>{
-            const{id, title, content, imgUrl, date, like} = post;
+            const{id, title, content, imgUrl, date, like, comments} = post;
+          
+            const l =Object.keys(like).length-1;
+            const willRemove = Object.keys(like)[l];
+
+            const likeId = like.id;
             const splittedDate = date?.split("-");
             const months = ["JAN","FEB","MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             let formattedMonth ="";  
@@ -41,13 +47,26 @@ const BlogCard = () => {
                         <span className="day">{formattedDay}</span>
                         <span className="month">{formattedMonth}</span>
                         <span>
+                        
                         <AiOutlineComment style={{fontSize:"1.5rem", paddingTop:"3px"}}
                         className="mt-2" role="button"/>
-                        <span className='text-white bg-secondary border rounded-pill'>5</span>
+                        
+                        <span className='text-white bg-secondary border rounded-pill'>{comments ? Object.keys(comments)?.length : 0}</span>
                         </span>
                         <span>
-                        <AiOutlineLike style={{fontSize:"1.5rem", paddingTop:"3px"}} role="button" />
-                        <span className='text-white bg-secondary border rounded-pill'>{like ? like :"0" }</span>
+                          
+                          <AiOutlineLike
+                          onClick={() => {
+                            if (Object.values(like).includes(currentUserEmail)) {
+                              removeLike(id, willRemove);
+                            }else{
+                            addLike(id, currentUserEmail);
+                            }
+                          }}
+                             
+                          style={{fontSize:"1.5rem", paddingTop:"3px"}} role="button" />
+                        
+                        <span className='text-white bg-secondary border rounded-pill'>{Object.values(like).length}</span>
                         </span>
                       </div>
                       {/* End Date */}

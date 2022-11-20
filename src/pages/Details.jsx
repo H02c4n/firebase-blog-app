@@ -2,21 +2,30 @@ import React, { useEffect } from 'react';
 import CommentForm from '../components/comment/CommentForm';
 import profile87 from "../assets/images/avatar1.jpg";
 import RecentPosts from '../components/recent-posts/RecentPosts';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import useBlogCalls from '../hooks/useBlogCalls';
 import { useSelector } from 'react-redux';
 
 const Details = () => {
 
   const {id} = useParams();
+  const {state:post} = useLocation();
   const {getPost} = useBlogCalls();
   const {currentPost} = useSelector((state) =>state.blogReducer);
-
+  const date = post.date;
+  const splittedDate = date?.split("-");
+            const months = ["JAN","FEB","MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            let formattedMonth ="";  
+            let formattedDay ="";  
+            if (splittedDate) {
+                formattedMonth = months[splittedDate[1]-1];
+                formattedDay = splittedDate[2];
+            }
   useEffect(() => {
   if (id) {
     getPost(id);
   }
-  }, [id]);
+  }, [id, currentPost?.comments?.length]);
 
   return (
     <div id="body_bg">
@@ -32,8 +41,8 @@ const Details = () => {
               <div className="blog-post">
                 <div className="blog-item-header">
                   <div className="blog-post-date pull-left">
-                    <span className="day">14</span>
-                    <span className="month">Dec</span>
+                    <span className="day">{formattedDay}</span>
+                    <span className="month">{formattedMonth}</span>
                   </div>
                   <h2>
                     <Link to="">

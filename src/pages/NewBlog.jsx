@@ -5,7 +5,7 @@ import useBlogCalls from "../hooks/useBlogCalls";
 const NewBlog = () => {
 
   const {addNewBlog} =  useBlogCalls();
-  const {displayName} = useSelector((state) => state.authReducer);
+  const {displayName, currentUser} = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
 
 
@@ -15,11 +15,13 @@ const NewBlog = () => {
   const date = `${year}-${month}-${day}`;
 
   const initialState = {
+    authorEmail:currentUser,
     title:"",
     imgUrl:"",
     content:"",
     comments:{},
     category:"",
+    like:0,
     date:date,
     author: displayName ? displayName : "admin"
   }
@@ -47,6 +49,7 @@ const NewBlog = () => {
               className="form-control"
               id="floatingInput"
               placeholder="title"
+              required
             />
             <label htmlFor="floatingInput">Title</label>
           </div>
@@ -59,6 +62,7 @@ const NewBlog = () => {
               className="form-control"
               id="floatingInput"
               placeholder="imgUrl"
+              required
             />
             <label htmlFor="floatingInput">Image URL</label>
           </div>
@@ -71,6 +75,7 @@ const NewBlog = () => {
               className="form-control"
               id="floatingInput"
               placeholder="category"
+              required
             />
             <label htmlFor="floatingInput">Category ex: Css, React</label>
           </div>
@@ -83,6 +88,7 @@ const NewBlog = () => {
             className="form-control"
             placeholder="Leave a comment here"
             id="floatingTextarea"
+            required
             />
             <label htmlFor="floatingTextarea">Content</label>
           </div>
