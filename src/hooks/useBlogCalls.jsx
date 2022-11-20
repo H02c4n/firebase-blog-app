@@ -14,7 +14,6 @@ import {
   onValue,
   child,
   get,
-  update,
   remove
 } from "firebase/database";
 
