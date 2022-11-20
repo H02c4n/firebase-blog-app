@@ -25,7 +25,7 @@ const BlogCard = () => {
         {blogList?.map(post =>{
             const{id, title, content, imgUrl, date, like, comments} = post;
           
-            const l =Object.keys(like).length-1;
+            const l =Object.keys(like).length > 0 ? Object.keys(like).length-1 : 1;
             const willRemove = Object.keys(like)[l];
 
             const splittedDate = date?.split("-");

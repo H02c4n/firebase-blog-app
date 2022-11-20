@@ -45,12 +45,14 @@ const useAuthCalls = () => {
       }
     };
 
-    const logout = async() =>{
+    const logout = async(navigate) =>{
       const auth = getAuth(firebase);
       signOut(auth);
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("displayName");
       dispatch(logoutSuccess());
       toastWarnNotify("gitme ne olur...")
-
+      navigate("/");
     }
     
     
