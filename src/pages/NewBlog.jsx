@@ -15,13 +15,13 @@ const NewBlog = () => {
   const date = `${year}-${month}-${day}`;
 
   const initialState = {
-    authorEmail:currentUser,
+    authorEmail:currentUser.email,
     title:"",
     imgUrl:"",
     content:"",
     comments:{},
     category:"",
-    like:0,
+    like:{"-DefaultLike":"admin@damin.com"},
     date:date,
     author: displayName ? displayName : "admin"
   }

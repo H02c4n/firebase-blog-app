@@ -4,7 +4,7 @@ import useBlogCalls from "../../hooks/useBlogCalls";
 
 const CommentForm = ({currentId}) => {
 
-  const {addNewComment} = useBlogCalls();
+  const {addNewComment, getPost} = useBlogCalls();
   const {displayName} = useSelector((state) => state.authReducer);
 
   const initialState = {
@@ -23,6 +23,11 @@ const CommentForm = ({currentId}) => {
       addNewComment(commentForm);
       setCommentForm(initialState);
     }
+
+    useEffect(() => {
+      getPost(currentId);
+    }, [commentForm, currentId]);
+    
     
 
 

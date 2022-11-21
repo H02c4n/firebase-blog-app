@@ -69,10 +69,12 @@
 .blog-item-header {
   h2 {
     margin: 0 0 2px;
-    a {
+    p {
       color: gray;
       text-decoration: none;
-
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: left;
     }
   }
 }

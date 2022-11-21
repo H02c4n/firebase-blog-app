@@ -25,7 +25,7 @@ const Details = () => {
   if (id) {
     getPost(id);
   }
-  }, [id, currentPost?.comments?.length]);
+  }, [id]);
 
   return (
     <div id="body_bg">
@@ -45,9 +45,9 @@ const Details = () => {
                     <span className="month">{formattedMonth}</span>
                   </div>
                   <h2>
-                    <Link to="">
+                    <p>
                       {currentPost?.title}
-                    </Link>
+                    </p>
                   </h2>
                 </div>
                 <div className="blog-item">
@@ -99,7 +99,7 @@ const Details = () => {
                               <Link to="">
                                 <img className="media-object" 
                                 src={profile87} alt="" />
-                                <p>{comment.commenter}</p>
+                                <p>{comment?.commenter}</p>
                               </Link>
                             </div>
                             <div className="col-md-10">

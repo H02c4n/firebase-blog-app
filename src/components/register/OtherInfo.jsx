@@ -10,7 +10,7 @@ const OtherInfo = ({formData, setFormData}) => {
             onChange={(e) => setFormData({
              ...formData, message:e.target.value
              })} 
-            placeholder="Your messagere here!" type="text" className="form-control" style={{height: '99px'}} />
+            placeholder="Your message here! this will shown under your post as author opinion!!" type="text" className="form-control" style={{height: '99px'}} />
           </div>
         </div>
         <div className="checkbox-circle mt-24">

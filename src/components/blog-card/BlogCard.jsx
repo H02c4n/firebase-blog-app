@@ -27,6 +27,7 @@ const BlogCard = () => {
           
             const l =Object.keys(like).length > 0 ? Object.keys(like).length-1 : 1;
             const willRemove = Object.keys(like)[l];
+            //console.log(Object.keys(like).length);
 
             const splittedDate = date?.split("-");
             const months = ["JAN","FEB","MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -57,6 +58,7 @@ const BlogCard = () => {
                           <AiOutlineLike
                           onClick={() => {
                             if (Object.values(like).includes(currentUserEmail)) {
+                              
                               removeLike(id, willRemove);
                             }else{
                             addLike(id, currentUserEmail);
@@ -71,8 +73,8 @@ const BlogCard = () => {
                       {/* End Date */}
                       {/* Title */}
                       <h2>
-                        <Link to="">
-                          {title}  </Link>
+                        <p>
+                          {title}  </p>
                       </h2>
                       
                       {/* End Title */}
