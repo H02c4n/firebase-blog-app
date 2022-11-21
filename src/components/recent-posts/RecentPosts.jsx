@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useBlogCalls from '../../hooks/useBlogCalls';
-import thumb1 from "../../assets/images/avatar2.jpg";
 import { useSelector } from 'react-redux';
 
 const RecentPosts = () => {
 
+  const navigate = useNavigate();
 const { getLastFivePosts } = useBlogCalls();
 const {lastFivePosts} = useSelector((state) => state.blogReducer);
 
-console.log(lastFivePosts);
+//console.log(lastFivePosts);
 
 
 useEffect(() => {
@@ -21,19 +21,32 @@ useEffect(() => {
     <div className="recent-posts">
                     <h3>Recent Posts</h3>
                     <ul className="posts-list margin-top-10">
-                      <li>
+                      {lastFivePosts?.map((post, i) =>{
+                        return(
+                          <li key={i}>
                         <div className="recent-post">
-                          <Link to="">
+                          <p style={{
+                            textAlign:"left",
+                            fontSize:"2rem",
+                            display:"inline-block",
+                            border:"2px solid gray",
+                            borderRadius:"50%",
+                            marginRight:"10px"
+                          }}>{post?.author[0]}</p>
+                          {/* <Link to="">
                             <img className="pull-left" style={{width:"75px"}} src={thumb1}  alt="thumb1" />
-                          </Link>
-                          <Link to="" className="posts-list-title">Sidebar post example</Link>
+                          </Link> */}
+                          <a role="button" onClick={()=> navigate(`details/${post?.id}`, {state:post})} className="posts-list-title">{post?.title}</a>
                           <br />
                           <span className="recent-post-date">
-                            July 30, 2013
+                            {post.date}
                           </span>
                         </div>
                         <div className="clearfix" />
                       </li>
+                        )
+                      })}
+                      
                       
                     </ul>
                   </div>

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import CommentForm from '../components/comment/CommentForm';
 import profile87 from "../assets/images/avatar1.jpg";
-import RecentPosts from '../components/recent-posts/RecentPosts';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import useBlogCalls from '../hooks/useBlogCalls';
 import { useSelector } from 'react-redux';
@@ -130,7 +129,6 @@ const Details = () => {
             {/* End Main Column */}
             {/* Side Column */}
             <div className="col-md-3 mt-3">
-             <RecentPosts/>
               {/* End Side Column */}
             </div>
           </div>

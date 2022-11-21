@@ -75,6 +75,7 @@ const useBlogCalls = () => {
 
 
   // Add new comment to current post in firebase 
+  const addNewComment = async (commentForm) =>{
     const db = getDatabase(firebase);
     const commentListRef = ref(db, `blogs/${commentForm.currentId}/comments/`);
     const newCommentRef = push(commentListRef);
@@ -105,11 +106,17 @@ const useBlogCalls = () => {
 
 
   // get last five posts from firebase
-  const getLastFivePosts =async ()=>{
+  const getLastFivePosts = ()=>{
     const db = getDatabase(firebase);
-    const lastFiveRef = query(ref(db, "blogs"), limitToLast(5));
-    const last = onValue(lastFiveRef);
-    console.log(last); 
+    const starCountRef = query(ref(db, "blogs"), limitToLast(5));
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      const lastFivePosts = [];
+      for (const id in data) {
+        lastFivePosts.push({ id, ...data[id] });
+      }
+      dispatch(setLastFivePosts(lastFivePosts));
+    }); 
   }
 
   return {
