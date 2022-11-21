@@ -1,15 +1,18 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import useBlogCalls from "../../hooks/useBlogCalls";
 
 const BlogCategories = () => {
+  const {updateCurrentCategory} = useBlogCalls();
 
   const {blogList} = useSelector((state) => state.blogReducer);
   
   const categories = [];
 
   for (let i = 0; i < blogList.length; i++) {
-    categories.push(blogList[i].category);
-    
+    if (!categories.includes(blogList[i].category)) {
+      categories.push(blogList[i].category);
+    }
   }
 
 
@@ -20,7 +23,7 @@ const BlogCategories = () => {
       {categories?.map((category, i) =>{
         return(
           <li key={i}>
-        <p href="#" className="blog-tag">{category.toUpperCase()}</p>
+        <p onClick={() => updateCurrentCategory(category)} role="button" className="blog-tag">{category.toUpperCase()}</p>
       </li>
         )
       })}

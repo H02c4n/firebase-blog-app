@@ -4,6 +4,8 @@ import {
   failPhase,
   loadPosts,
   loadCurrentPost,
+  setCurrentCategory,
+  setLastFivePosts,
 } from "../features/blogSlice";
 import firebase from "../auth/firebase";
 import {
@@ -14,12 +16,17 @@ import {
   onValue,
   child,
   get,
-  remove
+  remove,
+  query,
+  limitToLast
 } from "firebase/database";
 
 const useBlogCalls = () => {
+
+
   const dispatch = useDispatch();
 
+  // Add a new blog to database
   const addNewBlog = async (data) => {
     dispatch(startPhase());
     try {
@@ -32,6 +39,7 @@ const useBlogCalls = () => {
     }
   };
 
+  // Get all post from database and set these posts to store
   const getPosts = () => {
     dispatch(startPhase());
     const db = getDatabase(firebase);
@@ -46,6 +54,7 @@ const useBlogCalls = () => {
     });
   };
 
+  // Get only one post that is current Post
   const getPost = (postId) => {
     dispatch(startPhase());
     const dbRef = ref(getDatabase(firebase));
@@ -64,7 +73,8 @@ const useBlogCalls = () => {
       });
   };
 
-  const addNewComment = async (commentForm) => {
+
+  // Add new comment to current post in firebase 
     const db = getDatabase(firebase);
     const commentListRef = ref(db, `blogs/${commentForm.currentId}/comments/`);
     const newCommentRef = push(commentListRef);
@@ -72,6 +82,7 @@ const useBlogCalls = () => {
   };
 
 
+  // Add like to current post in firebase
   const addLike = async (id, currentUserEmail) =>{
     const db = getDatabase(firebase);
     
@@ -80,12 +91,26 @@ const useBlogCalls = () => {
     await set(newLikeRef, currentUserEmail);
   }
 
+  // Remove like from firebase if currentUser liked before
   const removeLike = async(id, willRemove) => {
     const db = getDatabase(firebase);
     const likeRef = ref(db, `blogs/${id}/like/${willRemove}`);
     await remove(likeRef);
   }
 
+  // set current posts category to store
+  const updateCurrentCategory =(currentCategory)=>{
+    dispatch(setCurrentCategory(currentCategory));
+  }
+
+
+  // get last five posts from firebase
+  const getLastFivePosts =async ()=>{
+    const db = getDatabase(firebase);
+    const lastFiveRef = query(ref(db, "blogs"), limitToLast(5));
+    const last = onValue(lastFiveRef);
+    console.log(last); 
+  }
 
   return {
     addNewBlog,
@@ -94,6 +119,8 @@ const useBlogCalls = () => {
     addNewComment,
     addLike,
     removeLike,
+    updateCurrentCategory,
+    getLastFivePosts,
   };
 };
 

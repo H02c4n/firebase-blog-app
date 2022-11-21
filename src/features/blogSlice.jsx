@@ -5,6 +5,8 @@ const initialState = {
     currentPost:JSON.parse(localStorage.getItem("currentPost")) || null,
     loading:false,
     error:false,
+    currentCategory: null,
+    lastFivePosts:[],
 }
 
 const blogSlice = createSlice({
@@ -23,6 +25,12 @@ const blogSlice = createSlice({
       state.currentPost = payload;
       state.loading = false;
     },
+    setCurrentCategory:(state, {payload})=>{
+      state.currentCategory = payload;
+    },
+    setLastFivePosts:(state, {payload})=>{
+      state.lastFivePosts = payload;
+    },
     failPhase:(state)=>{
         state.error= true;
         state.loading= false;
@@ -30,6 +38,6 @@ const blogSlice = createSlice({
   }
 });
 
-export const {startPhase, failPhase, loadPosts, loadCurrentPost} = blogSlice.actions
+export const {startPhase, failPhase, loadPosts, loadCurrentPost, setCurrentCategory, setLastFivePosts} = blogSlice.actions
 
 export default blogSlice.reducer

@@ -1,9 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom';
-
+import useBlogCalls from '../../hooks/useBlogCalls';
 import thumb1 from "../../assets/images/avatar2.jpg";
+import { useSelector } from 'react-redux';
 
 const RecentPosts = () => {
+
+const { getLastFivePosts } = useBlogCalls();
+const {lastFivePosts} = useSelector((state) => state.blogReducer);
+
+console.log(lastFivePosts);
+
+
+useEffect(() => {
+  getLastFivePosts();
+}, [])
+
+
   return (
     <div className="recent-posts">
                     <h3>Recent Posts</h3>
